@@ -1,0 +1,19 @@
+{
+    "out": "out",
+    "files": [
+        {
+            "path": "test/files/Test.java",
+            "tag": "tag",
+            "layers": [
+                {
+                    "type": "replace",
+                    "start": 1,
+                    "end": 2,
+                    "replacement": [
+                        "// constructor"
+                    ]
+                }
+            ]
+        }
+    ]
+}

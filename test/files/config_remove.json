@@ -1,0 +1,16 @@
+{
+    "out": "out",
+    "files": [
+        {
+            "path": "test/files/Test.java",
+            "tag": "tag",
+            "layers": [
+                {
+                    "type": "remove",
+                    "start": 1,
+                    "end": 2
+                }
+            ]
+        }
+    ]
+}
