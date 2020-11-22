@@ -2,6 +2,7 @@ from unittest import TestCase
 from unittest.mock import Mock
 from pathlib import Path
 from pear.loader import FileContainer, Line
+from pear.collapse import CollapsePath
 
 
 class TestFileContainer(TestCase):
@@ -62,3 +63,13 @@ class TestFileContainer(TestCase):
         }
         container = FileContainer.from_json(json, Path('out'))
         self.assertIsNone(container.tag)
+
+    def test_from_json_sets_output_path_generator_to_collapse_when_collapse_prop_present(self):
+        json = {
+            'path': 'test/files/Test.java',
+            'collapse': "_",
+        }
+
+        container = FileContainer.from_json(json, Path('out'))
+        expected = CollapsePath('_')
+        self.assertEqual(container.output_path_generator, expected)
