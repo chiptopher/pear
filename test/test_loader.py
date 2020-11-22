@@ -43,6 +43,22 @@ class TestFileContainer(TestCase):
         self.assertEqual(expected, container.final_path())
 
     def test_final_path_includes_tag(self):
-        container = FileContainer(Path('test/files/Test.java'), Path('out'), tag='tag')
+        container = FileContainer(
+            Path('test/files/Test.java'), Path('out'), tag='tag')
         expected = Path('out/test/files/Test.java_tag')
         self.assertEqual(expected, container.final_path())
+
+    def test_from_json_sets_tag_to_None_if_not_present(self):
+        json = {
+            'path': 'test/files/Test.java',
+        }
+        container = FileContainer.from_json(json, Path('out'))
+        self.assertIsNone(container.tag)
+
+    def test_from_json_sets_tag_to_None_if_empty_string(self):
+        json = {
+            'path': 'test/files/Test.java',
+            'tag': ''
+        }
+        container = FileContainer.from_json(json, Path('out'))
+        self.assertIsNone(container.tag)

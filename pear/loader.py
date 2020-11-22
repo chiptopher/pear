@@ -61,4 +61,15 @@ class FileContainer:
 
     @classmethod
     def from_json(cls, json: dict, output_path: Path) -> 'FileContainer':
-        return FileContainer(Path(json['path']), output_path, tag=json['tag'])
+        return FileContainer(Path(json['path']), output_path, tag=cls._get_or_none(json))
+
+    @classmethod
+    def _get_or_none(cls, json: dict):
+        try:
+            tag = json['tag']
+            if tag == '':
+                return None
+            else:
+                return tag
+        except KeyError:
+            return None
