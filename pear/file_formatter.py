@@ -9,7 +9,7 @@ class FileFormatter:
 
     def remove(self, line_number: int, lines: List[Line]) -> List[Line]:
         output = lines.copy()
-        output.pop(self._position_of_line_with_line_number(line_number, lines))
+        output.pop(self._position_of_line_with_line_number(line_number, lines.copy()))
         return output
 
     def insert(self, line_number: int, text: str,
@@ -25,7 +25,7 @@ class FileFormatter:
             return next(i for i, line in enumerate(lines)
                         if line.line_number == line_number)
         except StopIteration:
-            raise MissingLineError()
+            raise MissingLineError(line_number, lines)
 
     def _determine_position_for_insertion(self, line_number: int,
                                           lines: List[Line]) -> int:
@@ -39,4 +39,8 @@ class FileFormatter:
 
 
 class MissingLineError(Exception):
-    pass
+    def __init__(self, line_number, lines):
+        self.line_number = line_number
+        self.lines = lines
+
+        super().__init__(f'Could not find line number {line_number} in \n{self.lines}')
