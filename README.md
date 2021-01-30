@@ -29,7 +29,7 @@ class Foo:
         return self.name.reverse()
 ```
 
-Using `pear` you can accomplush this.
+Using `pear` you can accomplish this.
 
 ## Usage
 
